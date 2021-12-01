@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Day01 {
   public static List<Integer> readInData(String filename) {
@@ -20,7 +21,7 @@ public class Day01 {
     }
   }
 
-  public static int part1(String filename) {
+  public static long part1(String filename) {
     int count = 0;
     List<Integer> data = readInData(filename);
     int prev = data.get(0);
@@ -33,7 +34,7 @@ public class Day01 {
     return count;
   }
 
-  public static int part2(String filename) {
+  public static long part2(String filename) {
     int count = 0;
     List<Integer> data = readInData(filename);
     int n1 = data.get(0);
@@ -50,5 +51,27 @@ public class Day01 {
       prev = n1 + n2 + n3;
     }
     return count;
+  }
+
+  public static long part1Optimized(String filename) {
+    List<Integer> data = readInData(filename);
+    return IntStream.range(1, Objects.requireNonNull(data).size())
+        .filter(index -> (data.get(index) - data.get(index - 1)) > 0)
+        .count();
+  }
+
+  public static long part2Optimized(String filename) {
+    List<Integer> data = readInData(filename);
+    /*
+     * index     0   1   2   3
+     *          100 105 106 108
+     * sum 1    |_________|
+     * sum 2        |_________|
+     * same values  =======
+     * diff     xxx         xxx
+     */
+    return IntStream.range(3, Objects.requireNonNull(data).size())
+        .filter(index -> (data.get(index) - data.get(index - 3)) > 0)
+        .count();
   }
 }
