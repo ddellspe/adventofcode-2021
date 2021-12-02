@@ -9,12 +9,12 @@ import org.junit.Test;
 public class Day01Test {
   @Test
   public void providedInputTestPart1() {
-    assertThat(Day01.part1("part1.txt"), is(equalTo(7L)));
+    assertThat(Day01.part1("example.txt"), is(equalTo(7L)));
   }
 
   @Test
   public void providedInputTestPart1Optimized() {
-    assertThat(Day01.part1Optimized("part1.txt"), is(equalTo(7L)));
+    assertThat(Day01.part1Optimized("example.txt"), is(equalTo(7L)));
   }
 
   @Test
@@ -24,12 +24,12 @@ public class Day01Test {
 
   @Test
   public void providedInputTestPart2() {
-    assertThat(Day01.part2("part2.txt"), is(equalTo(5L)));
+    assertThat(Day01.part2("example.txt"), is(equalTo(5L)));
   }
 
   @Test
   public void providedInputTestPart2Optimized() {
-    assertThat(Day01.part2Optimized("part2.txt"), is(equalTo(5L)));
+    assertThat(Day01.part2Optimized("example.txt"), is(equalTo(5L)));
   }
 
   @Test
