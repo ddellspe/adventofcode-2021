@@ -32,11 +32,10 @@ public class Day03 {
           cnt++;
         }
       }
-      gammaBit.append(cnt > (data.size() / 2) ? "1" : "0");
-      epsilonBit.append(cnt > (data.size() / 2) ? "0" : "1");
+      gammaBit.append(cnt > (data.size() - cnt) ? "1" : "0");
+      epsilonBit.append(cnt > (data.size() - cnt) ? "0" : "1");
     }
-    return (long) Integer.parseInt(gammaBit.toString(), 2)
-        * Integer.parseInt(epsilonBit.toString(), 2);
+    return Long.parseLong(gammaBit.toString(), 2) * Long.parseLong(epsilonBit.toString(), 2);
   }
 
   public static long part2(String filename) {
@@ -46,7 +45,7 @@ public class Day03 {
     for (int i = 0; i < data.get(0).length(); i++) {
       int cnt = 0;
       if (oxygenData.size() == 1) {
-        continue;
+        break;
       }
       for (String str : oxygenData) {
         if (str.charAt(i) == '1') {
@@ -69,7 +68,7 @@ public class Day03 {
     for (int i = 0; i < data.get(0).length(); i++) {
       int cnt = 0;
       if (co2Data.size() == 1) {
-        continue;
+        break;
       }
       for (String str : co2Data) {
         if (str.charAt(i) == '1') {
@@ -85,6 +84,6 @@ public class Day03 {
             co2Data.stream().filter(str -> str.charAt(finalI2) == '1').collect(Collectors.toList());
       }
     }
-    return (long) Integer.parseInt(oxygenData.get(0), 2) * Integer.parseInt(co2Data.get(0), 2);
+    return Long.parseLong(oxygenData.get(0), 2) * Long.parseLong(co2Data.get(0), 2);
   }
 }
