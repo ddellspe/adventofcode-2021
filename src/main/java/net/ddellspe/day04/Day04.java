@@ -10,19 +10,17 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 class BingoBoard {
-  int[] board;
+  Integer[] board;
   boolean[] selectedBoard;
   int boardNum;
 
   public BingoBoard(String board, int num) {
-    this.board = new int[25];
     this.selectedBoard = new boolean[25];
     this.boardNum = num;
-    int ind = 0;
-    for (String val : board.stripLeading().split("[ ]+")) {
-      this.board[ind] = Integer.parseInt(val);
-      ind++;
-    }
+    this.board =
+        Arrays.stream(board.stripLeading().split("[ ]+"))
+            .map(Integer::parseInt)
+            .toArray(Integer[]::new);
   }
 
   public boolean checkBingo() {
