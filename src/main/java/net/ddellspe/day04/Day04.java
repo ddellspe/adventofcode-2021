@@ -12,35 +12,31 @@ import java.util.stream.Collectors;
 class BingoBoard {
   int[] board;
   boolean[] selectedBoard;
+  int boardNum;
 
-  public BingoBoard(List<String> board) {
+  public BingoBoard(String board, int num) {
     this.board = new int[25];
     this.selectedBoard = new boolean[25];
+    this.boardNum = num;
     int ind = 0;
-    for (String row : board) {
-      for (String cell : row.stripLeading().split("[ ]+")) {
-        this.board[ind] = Integer.parseInt(cell);
-        ind++;
-      }
+    for (String val : board.stripLeading().split("[ ]+")) {
+      this.board[ind] = Integer.parseInt(val);
+      ind++;
     }
   }
 
   public boolean checkBingo() {
-    for (int row = 0; row < 5; row++) {
-      if (selectedBoard[row * 5]
-          && selectedBoard[row * 5 + 1]
-          && selectedBoard[row * 5 + 2]
-          && selectedBoard[row * 5 + 3]
-          && selectedBoard[row * 5 + 4]) {
-        return true;
-      }
-    }
-    for (int col = 0; col < 5; col++) {
-      if (selectedBoard[col]
-          && selectedBoard[col + 5]
-          && selectedBoard[col + 10]
-          && selectedBoard[col + 15]
-          && selectedBoard[col + 20]) {
+    for (int num = 0; num < 5; num++) {
+      if ((selectedBoard[num * 5]
+              && selectedBoard[num * 5 + 1]
+              && selectedBoard[num * 5 + 2]
+              && selectedBoard[num * 5 + 3]
+              && selectedBoard[num * 5 + 4])
+          || (selectedBoard[num]
+              && selectedBoard[num + 5]
+              && selectedBoard[num + 10]
+              && selectedBoard[num + 15]
+              && selectedBoard[num + 20])) {
         return true;
       }
     }
@@ -63,22 +59,21 @@ class BingoBoard {
 
   public long calculateScore(int pick) {
     printBoard();
-    System.out.println(pick);
     long sum = 0L;
     for (int i = 0; i < 25; i++) {
-      if (selectedBoard[i] == false) {
+      if (!selectedBoard[i]) {
         sum += board[i];
       }
     }
-    System.out.println(sum);
     return sum * pick;
   }
 
   public void printBoard() {
+    System.out.printf("Board #%d\n", boardNum);
     for (int i = 0; i < 5; i++) {
       for (int j = 0; j < 5; j++) {
-        System.out.printf(
-            "%1c%2d ", this.selectedBoard[i * 5 + j] ? '*' : ' ', this.board[i * 5 + j]);
+        char ind = this.selectedBoard[i * 5 + j] ? '*' : ' ';
+        System.out.printf("%1c%2d%1c ", ind, this.board[i * 5 + j], ind);
       }
       System.out.println();
     }
@@ -103,35 +98,29 @@ public class Day04 {
     List<Integer> numbers =
         Arrays.stream(data.get(0).split(",")).map(Integer::parseInt).collect(Collectors.toList());
     List<BingoBoard> boards = new ArrayList<>();
-    List<String> board = new ArrayList<>();
+    StringBuilder board = new StringBuilder();
+    int boardNum = 1;
     for (String line : data) {
       if (line.equals(data.get(0))) {
-        board.clear();
+        board = new StringBuilder();
         continue;
       }
-      if (line.isBlank() && board.isEmpty()) {
+      if (line.isBlank() && board.length() == 0) {
         continue;
       }
-      if (line.isBlank() && !board.isEmpty()) {
-        boards.add(new BingoBoard(board));
-        board.clear();
+      if (line.isBlank() && board.length() > 0) {
+        boards.add(new BingoBoard(board.toString(), boardNum++));
+        board = new StringBuilder();
         continue;
       }
-      board.add(line);
+      board.append(" ").append(line);
     }
-    BingoBoard finalBoard = null;
-    int lastPick;
-    boards.add(new BingoBoard(board));
-    boolean bingo = false;
+    boards.add(new BingoBoard(board.toString(), boardNum));
     for (int pick : numbers) {
       for (BingoBoard brd : boards) {
         if (brd.draw(pick)) {
-          bingo = true;
           return brd.calculateScore(pick);
         }
-      }
-      if (bingo) {
-        break;
       }
     }
     return 0L;
@@ -142,33 +131,32 @@ public class Day04 {
     List<Integer> numbers =
         Arrays.stream(data.get(0).split(",")).map(Integer::parseInt).collect(Collectors.toList());
     List<BingoBoard> boards = new ArrayList<>();
-    List<String> board = new ArrayList<>();
+    StringBuilder board = new StringBuilder();
+    int boardNum = 1;
     for (String line : data) {
       if (line.equals(data.get(0))) {
-        board.clear();
+        board = new StringBuilder();
         continue;
       }
-      if (line.isBlank() && board.isEmpty()) {
+      if (line.isBlank() && board.length() == 0) {
         continue;
       }
-      if (line.isBlank() && !board.isEmpty()) {
-        boards.add(new BingoBoard(board));
-        board.clear();
+      if (line.isBlank() && board.length() > 0) {
+        boards.add(new BingoBoard(board.toString(), boardNum++));
+        board = new StringBuilder();
         continue;
       }
-      board.add(line);
+      board.append(" ").append(line);
     }
-    boards.add(new BingoBoard(board));
     boolean lastBingo = false;
     for (int pick : numbers) {
       for (BingoBoard brd : boards) {
-        if (brd.draw(pick) && lastBingo) {
+        if (brd.notBingo() && brd.draw(pick) && lastBingo) {
           return brd.calculateScore(pick);
         }
       }
-      if (boards.stream().filter(brd -> brd.notBingo()).count() == 1) {
+      if (boards.stream().filter(BingoBoard::notBingo).count() == 1) {
         lastBingo = true;
-        boards = boards.stream().filter(brd -> brd.notBingo()).collect(Collectors.toList());
       }
     }
     return 0L;
