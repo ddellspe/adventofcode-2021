@@ -4,12 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Day08 {
@@ -42,63 +39,58 @@ public class Day08 {
         .sum();
   }
 
-  public static Map<String, String> determineMapping(Map<Integer, Set<String>> input) {
-    Map<String, String> mappings = new HashMap<>();
-    String one = input.get(2).stream().findFirst().get();
-    mappings.put(one, "1");
-    String seven = input.get(3).stream().findFirst().get();
-    mappings.put(seven, "7");
-    String four = input.get(4).stream().findFirst().get();
-    mappings.put(four, "4");
-    String eight = input.get(7).stream().findFirst().get();
-    mappings.put(eight, "8");
-    Set<String> pending = input.get(5);
-    pending.addAll(input.get(6));
-    String six =
-        pending.stream()
-            .filter(val -> val.length() == 6)
+  public static String[] determineMapping(List<String> input) {
+    Map<Integer, List<String>> data = input.stream().collect(Collectors.groupingBy(String::length));
+    String[] mappings = new String[10];
+    mappings[1] = data.get(2).get(0);
+    mappings[7] = data.get(3).get(0);
+    mappings[4] = data.get(4).get(0);
+    mappings[8] = data.get(7).get(0);
+    List<String> pendingFives = data.get(5);
+    List<String> pendingSixes = data.get(6);
+    mappings[6] =
+        pendingSixes.stream()
             .filter(
                 val ->
-                    eight.chars().filter(c -> val.indexOf((char) c) == -1).count() == 1
-                        && one.chars().filter(c -> val.indexOf((char) c) == -1).count() == 1L)
+                    mappings[8].chars().filter(c -> val.indexOf((char) c) == -1).count() == 1
+                        && mappings[1].chars().filter(c -> val.indexOf((char) c) == -1).count()
+                            == 1L)
             .findFirst()
             .get();
-    pending.remove(six);
-    mappings.put(six, "6");
-    String five =
-        pending.stream()
-            .filter(val -> val.length() == 5)
-            .filter(val -> six.chars().filter(c -> val.indexOf((char) c) == -1).count() == 1L)
+    pendingSixes.remove(mappings[6]);
+    mappings[3] =
+        pendingFives.stream()
+            .filter(
+                val -> val.chars().filter(c -> mappings[1].indexOf((char) c) == -1).count() == 3L)
             .findFirst()
             .get();
-    pending.remove(five);
-    mappings.put(five, "5");
-    String nine =
-        pending.stream()
-            .filter(val -> val.length() == 6)
+    pendingFives.remove(mappings[3]);
+    mappings[5] =
+        pendingFives.stream()
+            .filter(
+                val -> mappings[6].chars().filter(c -> val.indexOf((char) c) == -1).count() == 1L)
+            .findFirst()
+            .get();
+    pendingFives.remove(mappings[5]);
+    mappings[9] =
+        pendingSixes.stream()
             .filter(
                 val ->
-                    eight.chars().filter(c -> val.indexOf((char) c) == -1).findFirst().getAsInt()
-                        == six.chars()
-                            .filter(c -> five.indexOf((char) c) == -1)
+                    mappings[8]
+                            .chars()
+                            .filter(c -> val.indexOf((char) c) == -1)
+                            .findFirst()
+                            .getAsInt()
+                        == mappings[6]
+                            .chars()
+                            .filter(c -> mappings[5].indexOf((char) c) == -1)
                             .findFirst()
                             .getAsInt())
             .findFirst()
             .get();
-    pending.remove(nine);
-    mappings.put(nine, "9");
-    String zero = pending.stream().filter(val -> val.length() == 6).findFirst().get();
-    pending.remove(zero);
-    mappings.put(zero, "0");
-    String three =
-        pending.stream()
-            .filter(val -> val.chars().filter(c -> one.indexOf((char) c) == -1).count() == 3L)
-            .findFirst()
-            .get();
-    pending.remove(three);
-    mappings.put(three, "3");
-    String two = pending.stream().findFirst().get();
-    mappings.put(two, "2");
+    pendingSixes.remove(mappings[9]);
+    mappings[0] = pendingSixes.get(0);
+    mappings[2] = pendingFives.get(0);
     return mappings;
   }
 
@@ -132,26 +124,14 @@ public class Day08 {
             .collect(Collectors.toList());
     long sum = 0;
     for (int i = 0; i < inputValues.size(); i++) {
-      Map<Integer, Set<String>> map = new HashMap<>();
-      for (String letter : inputValues.get(i)) {
-        if (map.get(letter.length()) != null) {
-          map.get(letter.length()).add(letter);
-        } else {
-          map.put(
-              letter.length(),
-              new HashSet<String>() {
-                {
-                  add(letter);
-                }
-              });
-        }
-      }
-      Map<String, String> mappings = determineMapping(map);
-      StringBuilder value = new StringBuilder();
-      for (String outValue : outputValues.get(i)) {
-        value.append(mappings.get(outValue));
-      }
-      sum += Integer.parseInt(value.toString());
+      List<String> mappings =
+          Arrays.stream(determineMapping(inputValues.get(i))).collect(Collectors.toList());
+      sum +=
+          Integer.parseInt(
+              outputValues.get(i).stream()
+                  .map(val -> String.valueOf(mappings.indexOf(val)))
+                  .reduce((curr, prev) -> curr + prev)
+                  .get());
     }
     return sum;
   }
