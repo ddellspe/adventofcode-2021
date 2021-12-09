@@ -39,7 +39,7 @@ public class Day08 {
         .sum();
   }
 
-  public static String[] determineMapping(List<String> input) {
+  public static List<String> determineMapping(List<String> input) {
     Map<Integer, List<String>> data = input.stream().collect(Collectors.groupingBy(String::length));
     String[] mappings = new String[10];
     mappings[1] = data.get(2).get(0);
@@ -91,48 +91,35 @@ public class Day08 {
     pendingSixes.remove(mappings[9]);
     mappings[0] = pendingSixes.get(0);
     mappings[2] = pendingFives.get(0);
-    return mappings;
+    return Arrays.stream(mappings).collect(Collectors.toList());
   }
 
   public static long part2(String filename) {
     List<String> data = readInData(filename);
-    List<List<String>> inputValues =
-        data.stream()
-            .map(
-                line ->
-                    Arrays.stream(line.split(" \\| ")[0].split("[ ]+"))
-                        .map(
-                            str -> {
-                              char[] chars = str.toCharArray();
-                              Arrays.sort(chars);
-                              return new String(chars);
-                            })
-                        .collect(Collectors.toList()))
-            .collect(Collectors.toList());
-    List<List<String>> outputValues =
-        data.stream()
-            .map(
-                line ->
-                    Arrays.stream(line.split(" \\| ")[1].split("[ ]+"))
-                        .map(
-                            str -> {
-                              char[] chars = str.toCharArray();
-                              Arrays.sort(chars);
-                              return new String(chars);
-                            })
-                        .collect(Collectors.toList()))
-            .collect(Collectors.toList());
-    long sum = 0;
-    for (int i = 0; i < inputValues.size(); i++) {
-      List<String> mappings =
-          Arrays.stream(determineMapping(inputValues.get(i))).collect(Collectors.toList());
-      sum +=
-          Integer.parseInt(
-              outputValues.get(i).stream()
-                  .map(val -> String.valueOf(mappings.indexOf(val)))
-                  .reduce((curr, prev) -> curr + prev)
-                  .get());
-    }
-    return sum;
+    return Objects.requireNonNull(data).stream()
+        .map(
+            line ->
+                Arrays.stream(line.split(" \\| "))
+                    .map(
+                        letters ->
+                            Arrays.stream(letters.split("[ ]+"))
+                                .map(
+                                    letter -> {
+                                      char[] chars = letter.toCharArray();
+                                      Arrays.sort(chars);
+                                      return new String(chars);
+                                    })
+                                .collect(Collectors.toList()))
+                    .collect(Collectors.toList()))
+        .mapToLong(
+            dataRow -> {
+              List<String> mappings = determineMapping(dataRow.get(0));
+              return Integer.parseInt(
+                  dataRow.get(1).stream()
+                      .map(val -> String.valueOf(mappings.indexOf(val)))
+                      .reduce((curr, prev) -> curr + prev)
+                      .get());
+            })
+        .sum();
   }
 }
