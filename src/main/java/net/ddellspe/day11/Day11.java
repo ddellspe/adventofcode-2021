@@ -43,7 +43,7 @@ public class Day11 {
       for (int y = 0; y < data.size(); y++) {
         for (int x = 0; x < data.get(y).length(); x++) {
           Point pt = new Point(x, y);
-          newPuzzle.put(pt, newPuzzle.get(pt) + 1);
+          newPuzzle.merge(pt, 1, Integer::sum);
           if (newPuzzle.get(pt) == 10) {
             flashers.add(pt);
           }
@@ -59,7 +59,7 @@ public class Day11 {
             if (pt.equals(flashPoint) || !puzzle.containsKey(pt)) {
               continue;
             }
-            newPuzzle.put(pt, newPuzzle.get(pt) + 1);
+            newPuzzle.merge(pt, 1, Integer::sum);
             if (newPuzzle.get(pt) >= 10 && !flashed.contains(pt) && !flashers.contains(pt)) {
               flashers.add(pt);
             }
@@ -92,7 +92,7 @@ public class Day11 {
       for (int y = 0; y < data.size(); y++) {
         for (int x = 0; x < data.get(y).length(); x++) {
           Point pt = new Point(x, y);
-          newPuzzle.put(pt, newPuzzle.get(pt) + 1);
+          newPuzzle.merge(pt, 1, Integer::sum);
           if (newPuzzle.get(pt) == 10) {
             flashers.add(pt);
           }
@@ -107,7 +107,7 @@ public class Day11 {
             if (pt.equals(flashPoint) || !puzzle.containsKey(pt)) {
               continue;
             }
-            newPuzzle.put(pt, newPuzzle.get(pt) + 1);
+            newPuzzle.merge(pt, 1, Integer::sum);
             if (newPuzzle.get(pt) >= 10 && !flashed.contains(pt) && !flashers.contains(pt)) {
               flashers.add(pt);
             }

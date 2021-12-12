@@ -35,12 +35,7 @@ public class Day05 {
         int x = x1;
         int y = y1;
         for (int i = 0; i <= Math.max(Math.abs(y1 - y2), Math.abs(x1 - x2)); i++) {
-          Point pt = new Point(x, y);
-          if (points.containsKey(pt)) {
-            points.put(pt, points.get(pt) + 1);
-          } else {
-            points.put(pt, 1);
-          }
+          points.merge(new Point(x, y), 1, Integer::sum);
           if (x1 < x2) {
             x++;
           } else if (x1 > x2) {
@@ -68,12 +63,7 @@ public class Day05 {
       int x = x1;
       int y = y1;
       for (int i = 0; i <= Math.max(Math.abs(y1 - y2), Math.abs(x1 - x2)); i++) {
-        Point pt = new Point(x, y);
-        if (points.containsKey(pt)) {
-          points.put(pt, points.get(pt) + 1);
-        } else {
-          points.put(pt, 1);
-        }
+        points.merge(new Point(x, y), 1, Integer::sum);
         if (x1 < x2) {
           x++;
         } else if (x1 > x2) {

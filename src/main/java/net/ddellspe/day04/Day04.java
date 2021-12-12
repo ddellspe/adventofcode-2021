@@ -53,15 +53,14 @@ public class Day04 {
         board = new StringBuilder();
         continue;
       }
-      if (line.isBlank() && board.length() == 0) {
-        continue;
-      }
-      if (line.isBlank() && board.length() > 0) {
-        boards.add(
-            Arrays.stream(board.toString().stripLeading().split("[ ]+"))
-                .map(Integer::parseInt)
-                .toArray(Integer[]::new));
-        board = new StringBuilder();
+      if (line.isBlank()) {
+        if (board.length() != 0) {
+          boards.add(
+              Arrays.stream(board.toString().stripLeading().split("[ ]+"))
+                  .map(Integer::parseInt)
+                  .toArray(Integer[]::new));
+          board = new StringBuilder();
+        }
         continue;
       }
       board.append(" ").append(line);
@@ -100,15 +99,14 @@ public class Day04 {
         board = new StringBuilder();
         continue;
       }
-      if (line.isBlank() && board.length() == 0) {
-        continue;
-      }
-      if (line.isBlank() && board.length() > 0) {
-        boards.add(
-            Arrays.stream(board.toString().stripLeading().split("[ ]+"))
-                .map(Integer::parseInt)
-                .toArray(Integer[]::new));
-        board = new StringBuilder();
+      if (line.isBlank()) {
+        if (board.length() != 0) {
+          boards.add(
+              Arrays.stream(board.toString().stripLeading().split("[ ]+"))
+                  .map(Integer::parseInt)
+                  .toArray(Integer[]::new));
+          board = new StringBuilder();
+        }
         continue;
       }
       board.append(" ").append(line);
