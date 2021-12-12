@@ -32,28 +32,8 @@ public class Day12 {
     Map<String, Set<String>> graph = new HashMap<>();
     for (String line : Objects.requireNonNull(data)) {
       String[] path = line.split("-");
-      if (graph.containsKey(path[0])) {
-        graph.get(path[0]).add(path[1]);
-      } else {
-        graph.put(
-            path[0],
-            new HashSet<>() {
-              {
-                add(path[1]);
-              }
-            });
-      }
-      if (graph.containsKey(path[1])) {
-        graph.get(path[1]).add(path[0]);
-      } else {
-        graph.put(
-            path[1],
-            new HashSet<>() {
-              {
-                add(path[0]);
-              }
-            });
-      }
+      graph.computeIfAbsent(path[0], k -> new HashSet<>()).add(path[1]);
+      graph.computeIfAbsent(path[1], k -> new HashSet<>()).add(path[0]);
     }
     Deque<List<String>> todo = new LinkedList<>();
     todo.add(
@@ -85,28 +65,8 @@ public class Day12 {
     Map<String, Set<String>> graph = new HashMap<>();
     for (String line : Objects.requireNonNull(data)) {
       String[] path = line.split("-");
-      if (graph.containsKey(path[0])) {
-        graph.get(path[0]).add(path[1]);
-      } else {
-        graph.put(
-            path[0],
-            new HashSet<>() {
-              {
-                add(path[1]);
-              }
-            });
-      }
-      if (graph.containsKey(path[1])) {
-        graph.get(path[1]).add(path[0]);
-      } else {
-        graph.put(
-            path[1],
-            new HashSet<>() {
-              {
-                add(path[0]);
-              }
-            });
-      }
+      graph.computeIfAbsent(path[0], k -> new HashSet<>()).add(path[1]);
+      graph.computeIfAbsent(path[1], k -> new HashSet<>()).add(path[0]);
     }
     List<String> initial =
         new ArrayList<>() {
