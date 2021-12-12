@@ -30,7 +30,7 @@ public class Day12 {
   public static long part1(String filename) {
     List<String> data = readInData(filename);
     Map<String, Set<String>> graph = new HashMap<>();
-    for (String line : data) {
+    for (String line : Objects.requireNonNull(data)) {
       String[] path = line.split("-");
       if (graph.containsKey(path[0])) {
         graph.get(path[0]).add(path[1]);
@@ -83,70 +83,73 @@ public class Day12 {
   public static long part2(String filename) {
     List<String> data = readInData(filename);
     Map<String, Set<String>> graph = new HashMap<>();
-    for (String line : data) {
+    for (String line : Objects.requireNonNull(data)) {
       String[] path = line.split("-");
-      if (!path[1].equals("start")) {
-        if (graph.containsKey(path[0])) {
-          graph.get(path[0]).add(path[1]);
-        } else {
-          graph.put(
-              path[0],
-              new HashSet<>() {
-                {
-                  add(path[1]);
-                }
-              });
-        }
+      if (graph.containsKey(path[0])) {
+        graph.get(path[0]).add(path[1]);
+      } else {
+        graph.put(
+            path[0],
+            new HashSet<>() {
+              {
+                add(path[1]);
+              }
+            });
       }
-      if (!path[0].equals("start")) {
-        if (graph.containsKey(path[1])) {
-          graph.get(path[1]).add(path[0]);
-        } else {
-          graph.put(
-              path[1],
-              new HashSet<>() {
-                {
-                  add(path[0]);
-                }
-              });
-        }
+      if (graph.containsKey(path[1])) {
+        graph.get(path[1]).add(path[0]);
+      } else {
+        graph.put(
+            path[1],
+            new HashSet<>() {
+              {
+                add(path[0]);
+              }
+            });
       }
     }
-    Deque<List<String>> todo = new LinkedList<>();
-    todo.add(
+    List<String> initial =
         new ArrayList<>() {
           {
             add("start");
           }
-        });
+        };
+    Map<List<String>, Boolean> doubledSmall =
+        new HashMap<>() {
+          {
+            put(initial, false);
+          }
+        };
+    Deque<List<String>> todo = new LinkedList<>();
+    todo.add(initial);
     Set<List<String>> completePaths = new HashSet<>();
     while (!todo.isEmpty()) {
       List<String> path = todo.pop();
-      boolean alreadyDoubled =
-          path.stream()
-                  .filter(v -> v.equals(v.toLowerCase()))
-                  .mapToLong(v -> path.stream().filter(e -> e.equals(v)).count())
-                  .max()
-                  .getAsLong()
-              == 2L;
+      boolean alreadyDoubled = doubledSmall.get(path);
       if (path.get(path.size() - 1).equals("end")) {
         completePaths.add(path);
         continue;
       }
-      for (String choice : graph.get(path.get(path.size() - 1))) {
+      for (String choice :
+          graph.get(path.get(path.size() - 1)).stream()
+              .filter(c -> !c.equals("start"))
+              .collect(Collectors.toSet())) {
         if (choice.equals(choice.toUpperCase())) {
           List<String> newPath = new ArrayList<>(path);
           newPath.add(choice);
           todo.add(newPath);
+          doubledSmall.put(newPath, alreadyDoubled);
         } else if (!alreadyDoubled
             && path.stream().filter(element -> element.equals(choice)).count() == 1) {
           List<String> newPath = new ArrayList<>(path);
           newPath.add(choice);
           todo.add(newPath);
+          doubledSmall.put(newPath, true);
         } else if (!path.contains(choice)) {
           List<String> newPath = new ArrayList<>(path);
           newPath.add(choice);
           todo.add(newPath);
+          doubledSmall.put(newPath, alreadyDoubled);
         }
       }
     }
