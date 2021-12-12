@@ -119,12 +119,16 @@ public class Day12 {
             add("start");
           }
         });
-    Deque<Boolean> todoSmall = new LinkedList<>();
-    todoSmall.add(false);
     Set<List<String>> completePaths = new HashSet<>();
     while (!todo.isEmpty()) {
       List<String> path = todo.pop();
-      boolean small = todoSmall.pop();
+      boolean alreadyDoubled =
+          path.stream()
+                  .filter(v -> v.equals(v.toLowerCase()))
+                  .mapToLong(v -> path.stream().filter(e -> e.equals(v)).count())
+                  .max()
+                  .getAsLong()
+              == 2L;
       if (path.get(path.size() - 1).equals("end")) {
         completePaths.add(path);
         continue;
@@ -134,17 +138,15 @@ public class Day12 {
           List<String> newPath = new ArrayList<>(path);
           newPath.add(choice);
           todo.add(newPath);
-          todoSmall.add(small);
-        } else if (!small && path.stream().filter(element -> element.equals(choice)).count() == 1) {
+        } else if (!alreadyDoubled
+            && path.stream().filter(element -> element.equals(choice)).count() == 1) {
           List<String> newPath = new ArrayList<>(path);
           newPath.add(choice);
           todo.add(newPath);
-          todoSmall.add(true);
         } else if (!path.contains(choice)) {
           List<String> newPath = new ArrayList<>(path);
           newPath.add(choice);
           todo.add(newPath);
-          todoSmall.add(small);
         }
       }
     }
