@@ -43,26 +43,23 @@ public class Day13 {
       }
     }
     for (String fold : folds.subList(0, 1)) {
-      Set<Point> newPoints = new HashSet<>();
       if (fold.contains("x")) {
         int x = Integer.parseInt(fold.split("=")[1]);
-        for (Point point : points) {
-          if (point.getX() > x) {
-            point.setX(2 * x - (point.getX()));
-          }
-          newPoints.add(point);
-        }
+        points =
+            points.stream()
+                .map(
+                    point ->
+                        point.getX() > x ? new Point(2 * x - point.getX(), point.getY()) : point)
+                .collect(Collectors.toSet());
       } else {
         int y = Integer.parseInt(fold.split("=")[1]);
-        for (Point point : points) {
-          if (point.getY() > y) {
-            point.setY(2 * y - (point.getY()));
-          }
-          newPoints.add(point);
-        }
+        points =
+            points.stream()
+                .map(
+                    point ->
+                        point.getY() > y ? new Point(point.getX(), 2 * y - point.getY()) : point)
+                .collect(Collectors.toSet());
       }
-      points.clear();
-      points.addAll(newPoints);
     }
     return points.size();
   }
@@ -86,33 +83,28 @@ public class Day13 {
       }
     }
     for (String fold : folds) {
-      Set<Point> newPoints = new HashSet<>();
       if (fold.contains("x")) {
         int x = Integer.parseInt(fold.split("=")[1]);
-        for (Point point : points) {
-          if (point.getX() > x) {
-            point.setX(2 * x - (point.getX()));
-          }
-          newPoints.add(point);
-        }
+        points =
+            points.stream()
+                .map(
+                    point ->
+                        point.getX() > x ? new Point(2 * x - point.getX(), point.getY()) : point)
+                .collect(Collectors.toSet());
       } else {
         int y = Integer.parseInt(fold.split("=")[1]);
-        for (Point point : points) {
-          if (point.getY() > y) {
-            point.setY(2 * y - (point.getY()));
-          }
-          newPoints.add(point);
-        }
+        points =
+            points.stream()
+                .map(
+                    point ->
+                        point.getY() > y ? new Point(point.getX(), 2 * y - point.getY()) : point)
+                .collect(Collectors.toSet());
       }
-      points.clear();
-      points.addAll(newPoints);
     }
-    int x = points.stream().mapToInt(Point::getX).max().getAsInt();
-    int y = points.stream().mapToInt(Point::getY).max().getAsInt();
     StringBuilder builder = new StringBuilder();
-    for (int j = 0; j <= y; j++) {
-      for (int i = 0; i <= x; i++) {
-        Point pt = new Point(i, j);
+    for (int y = 0; y <= points.stream().mapToInt(Point::getY).max().getAsInt(); y++) {
+      for (int x = 0; x <= points.stream().mapToInt(Point::getX).max().getAsInt(); x++) {
+        Point pt = new Point(x, y);
         if (points.contains(pt)) {
           builder.append("#");
         } else {
