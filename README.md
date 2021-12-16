@@ -28,3 +28,4 @@ Completion Statistics:
 |13|00:17:01|1351|00:20:28| 925||
 |14|00:14:14|1809|00:33:38|1166||
 |15|00:34:26|2348|01:11:59|2407||
+|16|08:21:21|10989|08:39:49|9742|had a rough night, got stuck at midnight and decided to sleep instead|
