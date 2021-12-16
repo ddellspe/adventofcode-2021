@@ -93,16 +93,6 @@ public class Day16 {
     }
   }
 
-  public static String zeroPad(String str, int length) {
-    if (str.length() > length) {
-      throw new RuntimeException("Invalid String: " + str);
-    } else if (str.length() == length) {
-      return str;
-    } else {
-      return zeroPad("0" + str, length);
-    }
-  }
-
   public static int read(String str, int offset, int length) {
     return Integer.parseInt(str.substring(offset, offset + length), 2);
   }
@@ -156,16 +146,18 @@ public class Day16 {
 
   public static long part1(String filename) {
     List<String> data = readInData(filename);
-    String packet = data.get(0);
     Map<String, String> bitMap = new HashMap<>();
     for (int i = 0; i < 16; i++) {
-      bitMap.put(Integer.toString(i, 16).toUpperCase(), zeroPad(Integer.toString(i, 2), 4));
+      bitMap.put(
+          Integer.toString(i, 16).toUpperCase(),
+          String.format("%4s", (Integer.toString(i, 2))).replace(" ", "0"));
     }
     String packetBits =
-        Arrays.stream(packet.split("")).map(bitMap::get).reduce(String::concat).get();
-    Packet initPacket = readPacket(packetBits, 0);
+        Arrays.stream(data.get(0).split("")).map(bitMap::get).reduce(String::concat).get();
+
     Queue<Packet> packets = new LinkedList<>();
-    packets.add(initPacket);
+    packets.add(readPacket(packetBits, 0));
+
     int versionSum = 0;
     while (!packets.isEmpty()) {
       Packet pack = packets.poll();
@@ -180,16 +172,17 @@ public class Day16 {
 
   public static long part2(String filename) {
     List<String> data = readInData(filename);
-    String packet = data.get(0);
     Map<String, String> bitMap = new HashMap<>();
     for (int i = 0; i < 16; i++) {
-      bitMap.put(Integer.toString(i, 16).toUpperCase(), zeroPad(Integer.toString(i, 2), 4));
+      bitMap.put(
+          Integer.toString(i, 16).toUpperCase(),
+          String.format("%4s", (Integer.toString(i, 2))).replace(" ", "0"));
     }
     String packetBits =
-        Arrays.stream(packet.split("")).map(bitMap::get).reduce(String::concat).get();
+        Arrays.stream(data.get(0).split("")).map(bitMap::get).reduce(String::concat).get();
 
-    Packet initPacket = readPacket(packetBits, 0);
+    Packet packet = readPacket(packetBits, 0);
 
-    return initPacket.getPacketScore();
+    return packet.getPacketScore();
   }
 }
