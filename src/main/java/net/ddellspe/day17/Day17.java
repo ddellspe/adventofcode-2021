@@ -56,7 +56,7 @@ public class Day17 {
     int xMax = Integer.parseInt(xStr.split("\\.\\.")[1]);
     int yMin = Integer.parseInt(yStr.split("\\.\\.")[0]);
     int yMax = Integer.parseInt(yStr.split("\\.\\.")[1]);
-    for (int initialX = 0; initialX <= xMax; initialX++) {
+    for (int initialX = (int) Math.sqrt(xMin * 2); initialX <= xMax; initialX++) {
       for (int initialY = yMin; initialY < yMin * -1; initialY++) {
         long hit = hitsTarget(initialX, initialY, xMin, xMax, yMin, yMax);
         if (hit > Integer.MIN_VALUE) {
@@ -77,7 +77,7 @@ public class Day17 {
     int xMax = Integer.parseInt(xStr.split("\\.\\.")[1]);
     int yMin = Integer.parseInt(yStr.split("\\.\\.")[0]);
     int yMax = Integer.parseInt(yStr.split("\\.\\.")[1]);
-    for (int initialX = 0; initialX <= xMax; initialX++) {
+    for (int initialX = (int) Math.sqrt(xMin * 2); initialX <= xMax; initialX++) {
       for (int initialY = yMin; initialY < yMin * -1; initialY++) {
         long hit = hitsTarget(initialX, initialY, xMin, xMax, yMin, yMax);
         if (hit > Integer.MIN_VALUE) {
