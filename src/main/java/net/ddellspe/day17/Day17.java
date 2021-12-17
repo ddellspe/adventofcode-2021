@@ -25,20 +25,14 @@ public class Day17 {
   }
 
   public static long hitsTarget(int xInit, int yInit, int xMin, int xMax, int yMin, int yMax) {
-    boolean passedXMin = false;
-    boolean passedXMax = false;
-    boolean passedYMin = false;
-    boolean passedYMax = false;
-    boolean inTarget = false;
+    boolean passedYMin;
+    boolean inTarget;
     int x = 0;
     int y = 0;
     long maxY = 0;
     do {
       maxY = Math.max(y, maxY);
-      passedXMax = passedXMax || x > xMax;
-      passedXMin = passedXMin || x > xMin;
       passedYMin = y < yMin;
-      passedYMax = passedYMax || y <= yMax;
       inTarget = x >= xMin && x <= xMax && y >= yMin && y <= yMax;
       x += xInit;
       y += yInit;
