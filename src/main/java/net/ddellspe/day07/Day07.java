@@ -4,6 +4,8 @@ import java.util.List;
 import net.ddellspe.utils.InputUtils;
 
 public class Day07 {
+  private Day07() {}
+
   public static long part1(String filename) {
     List<Integer> data = InputUtils.numbersInOneLine(filename, Day07.class);
     long max = data.stream().max(Integer::compare).get();

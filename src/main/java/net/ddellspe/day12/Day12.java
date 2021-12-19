@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 import net.ddellspe.utils.InputUtils;
 
 public class Day12 {
+  private Day12() {}
+
   public static long part1(String filename) {
     List<String> data = InputUtils.stringPerLine(filename, Day12.class);
     Map<String, Set<String>> graph = new HashMap<>();

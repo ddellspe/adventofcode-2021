@@ -10,6 +10,8 @@ import net.ddellspe.utils.InputUtils;
 import net.ddellspe.utils.Point;
 
 public class Day15 {
+  private Day15() {}
+
   static class QueueEntry implements Comparable<QueueEntry> {
     Point point;
     long cost;
@@ -63,17 +65,16 @@ public class Day15 {
         paths.put(pt, getPaths(pt, maxX, maxY));
       }
     }
-    long best = -1;
+    long best = Long.MAX_VALUE;
     HashMap<Point, Long> bestAt = new HashMap<>();
     PriorityQueue<QueueEntry> todo = new PriorityQueue<>();
     todo.add(new QueueEntry(new Point(0, 0), 0L));
-    long cnt = 0;
     while (!todo.isEmpty()) {
       QueueEntry entry = todo.poll();
       Point lastCoord = entry.getPoint();
       long cost = entry.getCost();
 
-      if (best > -1 && cost >= best) {
+      if (cost >= best) {
         continue;
       } else if (lastCoord.equals(new Point(maxX - 1, maxY - 1))) {
         best = cost;
@@ -87,8 +88,6 @@ public class Day15 {
       for (Point pt : paths.get(lastCoord)) {
         todo.add(new QueueEntry(pt, cost + costs.get(pt)));
       }
-      cnt++;
-      if (cnt % 10000000 == 0) {}
     }
     return bestAt.get(new Point(maxX - 1, maxY - 1));
   }
@@ -115,7 +114,7 @@ public class Day15 {
         }
       }
     }
-    long best = -1;
+    long best = Long.MAX_VALUE;
     HashMap<Point, Long> bestAt = new HashMap<>();
     PriorityQueue<QueueEntry> todo = new PriorityQueue<>();
     todo.add(new QueueEntry(new Point(0, 0), 0L));
@@ -124,7 +123,7 @@ public class Day15 {
       Point lastCoord = entry.getPoint();
       long cost = entry.getCost();
 
-      if (best > -1 && cost >= best) {
+      if (cost >= best) {
         continue;
       } else if (lastCoord.equals(new Point(maxMaxX - 1, maxMaxY - 1))) {
         best = cost;

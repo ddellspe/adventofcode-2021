@@ -11,6 +11,8 @@ import net.ddellspe.utils.InputUtils;
 import net.ddellspe.utils.Point;
 
 public class Day11 {
+  private Day11() {}
+
   public static long part1(String filename) {
     List<String> data = InputUtils.stringPerLine(filename, Day11.class);
     Map<Point, Integer> puzzle = new HashMap<>();

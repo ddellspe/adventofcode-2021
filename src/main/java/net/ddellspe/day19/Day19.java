@@ -11,6 +11,8 @@ import net.ddellspe.utils.InputUtils;
 import net.ddellspe.utils.Point3D;
 
 public class Day19 {
+  private Day19() {}
+
   public static Map<Integer, Set<Point3D>> parseScanners(List<String> data) {
     Map<Integer, Set<Point3D>> scanners = new HashMap<>();
     Set<Point3D> points = new HashSet<>();

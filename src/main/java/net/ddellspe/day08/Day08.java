@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import net.ddellspe.utils.InputUtils;
 
 public class Day08 {
+  private Day08() {}
+
   public static List<String> determineMapping(List<String> input) {
     Map<Integer, List<String>> data = input.stream().collect(Collectors.groupingBy(String::length));
     String[] mappings = new String[10];

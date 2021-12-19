@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
 import net.ddellspe.utils.InputUtils;
 
 public class Day18 {
+  private Day18() {}
+
   static Pattern PAIR_PATTERN = Pattern.compile("\\[(\\d+),(\\d+)\\]");
   static Pattern LEFT_NUMBER_PATTERN = Pattern.compile("\\d+(?!.*\\d)");
   static Pattern GREATER_THAN_10_PATTERN = Pattern.compile("\\d\\d+");

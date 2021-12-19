@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 import net.ddellspe.utils.InputUtils;
 
 public class Day10 {
+  private Day10() {}
+
   public static long part1(String filename) {
     List<String> data = InputUtils.stringPerLine(filename, Day10.class);
     Map<String, Long> points =

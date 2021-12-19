@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import net.ddellspe.utils.InputUtils;
 
 public class Day03 {
+  private Day03() {}
+
   public static long part1(String filename) {
     List<String> data = InputUtils.stringPerLine(filename, Day03.class);
     StringBuilder gammaBit = new StringBuilder();
@@ -30,8 +32,7 @@ public class Day03 {
     for (int i = 0; i < data.get(0).length(); i++) {
       int cnt = 0;
       if (oxygenData.size() == 1) {
-        // not tested, but this is a potential issue
-        break;
+        break; // $COVERAGE-IGNORE$
       }
       for (String str : oxygenData) {
         if (str.charAt(i) == '1') {

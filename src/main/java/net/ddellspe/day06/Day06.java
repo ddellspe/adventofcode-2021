@@ -5,6 +5,8 @@ import java.util.List;
 import net.ddellspe.utils.InputUtils;
 
 public class Day06 {
+  private Day06() {}
+
   public static long part1(String filename) {
     List<Integer> data = InputUtils.numbersInOneLine(filename, Day06.class);
     int[] dataList = new int[9];

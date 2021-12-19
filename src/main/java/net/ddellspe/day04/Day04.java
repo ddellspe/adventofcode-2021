@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import net.ddellspe.utils.InputUtils;
 
 public class Day04 {
+  private Day04() {}
+
   public static boolean isBingo(Integer[] board) {
     for (int num = 0; num < 5; num++) {
       if (board[num * 5]
@@ -70,8 +72,7 @@ public class Day04 {
       boards.clear();
       boards.addAll(newBoards);
     }
-    // this should not be reached, but might be if input is bad or wrong
-    return 0L;
+    return 0L; // $COVERAGE-IGNORE$
   }
 
   public static long part2(String filename) {
@@ -121,7 +122,6 @@ public class Day04 {
         lastBingo = true;
       }
     }
-    // this should not be reached, but might be if input is bad or wrong
-    return 0L;
+    return 0L; // $COVERAGE-IGNORE$
   }
 }

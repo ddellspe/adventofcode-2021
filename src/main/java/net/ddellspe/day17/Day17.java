@@ -8,6 +8,8 @@ import net.ddellspe.utils.InputUtils;
 import net.ddellspe.utils.Point;
 
 public class Day17 {
+  private Day17() {}
+
   public static long hitsTarget(int xInit, int yInit, int xMin, int xMax, int yMin, int yMax) {
     boolean passedYMin;
     boolean inTarget;

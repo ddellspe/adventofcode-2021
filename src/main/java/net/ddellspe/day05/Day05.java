@@ -7,6 +7,8 @@ import net.ddellspe.utils.InputUtils;
 import net.ddellspe.utils.Point;
 
 public class Day05 {
+  private Day05() {}
+
   public static long part1(String filename) {
     List<String> data = InputUtils.stringPerLine(filename, Day05.class);
     Map<Point, Integer> points = new HashMap<Point, Integer>();

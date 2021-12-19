@@ -14,6 +14,8 @@ import net.ddellspe.utils.InputUtils;
 import net.ddellspe.utils.Point;
 
 public class Day09 {
+  private Day09() {}
+
   public static Queue<Point> getNeighbors(Point point) {
     Queue<Point> neighbors = new LinkedList<>();
     neighbors.add(new Point(point.getX() - 1, point.getY()));
@@ -78,8 +80,7 @@ public class Day09 {
       int val = points.get(point);
       long size = 1;
       if (visited.contains(point)) {
-        // This shouldn't be needed unless there's bad data
-        continue;
+        continue; // $COVERAGE-IGNORE$
       }
       visited.add(point);
       Queue<Point> neighbors = getNeighbors(point);

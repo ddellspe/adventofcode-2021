@@ -9,6 +9,8 @@ import net.ddellspe.utils.InputUtils;
 import net.ddellspe.utils.Point;
 
 public class Day13 {
+  private Day13() {}
+
   public static long part1(String filename) {
     List<String> data = InputUtils.stringPerLine(filename, Day13.class);
     Set<Point> points = new HashSet<>();

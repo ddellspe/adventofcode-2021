@@ -10,6 +10,8 @@ import java.util.Queue;
 import net.ddellspe.utils.InputUtils;
 
 public class Day16 {
+  private Day16() {}
+
   public static class Packet {
     private Integer version;
     private Integer typeId;
@@ -34,31 +36,33 @@ public class Day16 {
     }
 
     public Long getPacketScore() {
-      if (typeId == 0) {
-        return packets.stream().mapToLong(Packet::getPacketScore).sum();
-      } else if (typeId == 1) {
-        return packets.stream().mapToLong(Packet::getPacketScore).reduce(1L, (p, c) -> p * c);
-      } else if (typeId == 2) {
-        return packets.stream().mapToLong(Packet::getPacketScore).min().getAsLong();
-      } else if (typeId == 3) {
-        return packets.stream().mapToLong(Packet::getPacketScore).max().getAsLong();
-      } else if (typeId == 4) {
-        return n;
-      } else if (typeId == 5) {
-        Packet packet1 = packets.get(0);
-        Packet packet2 = packets.get(1);
-        return packet1.getPacketScore() > packet2.getPacketScore() ? 1L : 0L;
-      } else if (typeId == 6) {
-        Packet packet1 = packets.get(0);
-        Packet packet2 = packets.get(1);
-        return packet1.getPacketScore() < packet2.getPacketScore() ? 1L : 0L;
-      } else if (typeId == 7) {
-        Packet packet1 = packets.get(0);
-        Packet packet2 = packets.get(1);
-        return packet1.getPacketScore() == packet2.getPacketScore() ? 1L : 0L;
+      switch (typeId) {
+        case 0:
+          return packets.stream().mapToLong(Packet::getPacketScore).sum();
+        case 1:
+          return packets.stream().mapToLong(Packet::getPacketScore).reduce(1L, (p, c) -> p * c);
+        case 2:
+          return packets.stream().mapToLong(Packet::getPacketScore).min().getAsLong();
+        case 3:
+          return packets.stream().mapToLong(Packet::getPacketScore).max().getAsLong();
+        case 4:
+          return n;
+        case 5:
+        case 6:
+        case 7:
+          Packet packet1 = packets.get(0);
+          Packet packet2 = packets.get(1);
+          switch (typeId) {
+            case 5:
+              return packet1.getPacketScore() > packet2.getPacketScore() ? 1L : 0L;
+            case 6:
+              return packet1.getPacketScore() < packet2.getPacketScore() ? 1L : 0L;
+            case 7:
+              return packet1.getPacketScore() == packet2.getPacketScore() ? 1L : 0L;
+          }
+        default:
+          throw new RuntimeException("Unknown type ID: " + typeId); // $COVERAGE-IGNORE$
       }
-      // With proper data this shouldn't be necessary
-      throw new RuntimeException("Unknown type ID: " + typeId);
     }
 
     public int getIndex() {

@@ -6,6 +6,8 @@ import java.util.stream.IntStream;
 import net.ddellspe.utils.InputUtils;
 
 public class Day01 {
+  private Day01() {}
+
   public static long part1(String filename) {
     int count = 0;
     List<Integer> data = InputUtils.numberPerLine(filename, Day01.class);

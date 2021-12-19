@@ -7,6 +7,8 @@ import java.util.Map.Entry;
 import net.ddellspe.utils.InputUtils;
 
 public class Day14 {
+  private Day14() {}
+
   public static long part1(String filename) {
     List<String> data = InputUtils.stringPerLine(filename, Day14.class);
     String template = data.get(0);

@@ -4,6 +4,8 @@ import java.util.List;
 import net.ddellspe.utils.InputUtils;
 
 public class Day02 {
+  private Day02() {}
+
   public static long part1(String filename) {
     List<String> movements = InputUtils.stringPerLine(filename, Day02.class);
     long hPos = 0;
