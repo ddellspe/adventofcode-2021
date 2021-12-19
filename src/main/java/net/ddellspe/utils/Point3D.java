@@ -48,100 +48,83 @@ public class Point3D {
   }
 
   public void setZ(int z) {
-    this.y = z;
+    this.z = z;
   }
 
   public List<Point3D> getDifference(Point3D pt) {
     List<Point3D> points = new ArrayList<>();
-    points.add(new Point3D(this.x - pt.x, this.y - pt.y, this.z - pt.z));
-    points.add(new Point3D(this.x - pt.x, this.y + pt.y, this.z - pt.z));
-    points.add(new Point3D(this.x - pt.x, this.y - pt.y, this.z + pt.z));
-    points.add(new Point3D(this.x - pt.x, this.y + pt.y, this.z + pt.z));
-    points.add(new Point3D(this.x + pt.x, this.y - pt.y, this.z - pt.z));
-    points.add(new Point3D(this.x + pt.x, this.y + pt.y, this.z - pt.z));
-    points.add(new Point3D(this.x + pt.x, this.y - pt.y, this.z + pt.z));
-    points.add(new Point3D(this.x + pt.x, this.y + pt.y, this.z + pt.z));
-
-    points.add(new Point3D(this.x - pt.x, this.y - pt.z, this.z - pt.y));
-    points.add(new Point3D(this.x - pt.x, this.y + pt.z, this.z - pt.y));
-    points.add(new Point3D(this.x - pt.x, this.y - pt.z, this.z + pt.y));
-    points.add(new Point3D(this.x - pt.x, this.y + pt.z, this.z + pt.y));
-    points.add(new Point3D(this.x + pt.x, this.y - pt.z, this.z - pt.y));
-    points.add(new Point3D(this.x + pt.x, this.y + pt.z, this.z - pt.y));
-    points.add(new Point3D(this.x + pt.x, this.y - pt.z, this.z + pt.y));
-    points.add(new Point3D(this.x + pt.x, this.y + pt.z, this.z + pt.y));
-
-    points.add(new Point3D(this.x - pt.y, this.y - pt.x, this.z - pt.z));
-    points.add(new Point3D(this.x - pt.y, this.y + pt.x, this.z - pt.z));
-    points.add(new Point3D(this.x - pt.y, this.y - pt.x, this.z + pt.z));
-    points.add(new Point3D(this.x - pt.y, this.y + pt.x, this.z + pt.z));
-    points.add(new Point3D(this.x + pt.y, this.y - pt.x, this.z - pt.z));
-    points.add(new Point3D(this.x + pt.y, this.y + pt.x, this.z - pt.z));
-    points.add(new Point3D(this.x + pt.y, this.y - pt.x, this.z + pt.z));
-    points.add(new Point3D(this.x + pt.y, this.y + pt.x, this.z + pt.z));
-
-    points.add(new Point3D(this.x - pt.y, this.y - pt.z, this.z - pt.x));
-    points.add(new Point3D(this.x - pt.y, this.y + pt.z, this.z - pt.x));
-    points.add(new Point3D(this.x - pt.y, this.y - pt.z, this.z + pt.x));
-    points.add(new Point3D(this.x - pt.y, this.y + pt.z, this.z + pt.x));
-    points.add(new Point3D(this.x + pt.y, this.y - pt.z, this.z - pt.x));
-    points.add(new Point3D(this.x + pt.y, this.y + pt.z, this.z - pt.x));
-    points.add(new Point3D(this.x + pt.y, this.y - pt.z, this.z + pt.x));
-    points.add(new Point3D(this.x + pt.y, this.y + pt.z, this.z + pt.x));
-
-    points.add(new Point3D(this.x - pt.z, this.y - pt.y, this.z - pt.x));
-    points.add(new Point3D(this.x - pt.z, this.y + pt.y, this.z - pt.x));
-    points.add(new Point3D(this.x - pt.z, this.y - pt.y, this.z + pt.x));
-    points.add(new Point3D(this.x - pt.z, this.y + pt.y, this.z + pt.x));
-    points.add(new Point3D(this.x + pt.z, this.y - pt.y, this.z - pt.x));
-    points.add(new Point3D(this.x + pt.z, this.y + pt.y, this.z - pt.x));
-    points.add(new Point3D(this.x + pt.z, this.y - pt.y, this.z + pt.x));
-    points.add(new Point3D(this.x + pt.z, this.y + pt.y, this.z + pt.x));
-
-    points.add(new Point3D(this.x - pt.z, this.y - pt.x, this.z - pt.y));
-    points.add(new Point3D(this.x - pt.z, this.y + pt.x, this.z - pt.y));
-    points.add(new Point3D(this.x - pt.z, this.y - pt.x, this.z + pt.y));
-    points.add(new Point3D(this.x - pt.z, this.y + pt.x, this.z + pt.y));
-    points.add(new Point3D(this.x + pt.z, this.y - pt.x, this.z - pt.y));
-    points.add(new Point3D(this.x + pt.z, this.y + pt.x, this.z - pt.y));
-    points.add(new Point3D(this.x + pt.z, this.y - pt.x, this.z + pt.y));
-    points.add(new Point3D(this.x + pt.z, this.y + pt.x, this.z + pt.y));
-
+    for (int i = 0; i < 6; i++) {
+      int x = pt.x;
+      int y = pt.y;
+      int z = pt.z;
+      switch (i) {
+        case 1:
+          y = pt.z;
+          z = pt.y;
+          break;
+        case 2:
+          x = pt.y;
+          y = pt.x;
+          break;
+        case 3:
+          x = pt.y;
+          y = pt.z;
+          z = pt.x;
+          break;
+        case 4:
+          x = pt.z;
+          z = pt.x;
+          break;
+        case 5:
+          x = pt.z;
+          y = pt.x;
+          z = pt.y;
+          break;
+      }
+      for (int j = 0; j < 8; j++) {
+        points.add(
+            new Point3D(
+                this.x + x * (j / 4 % 2 == 0 ? -1 : 1),
+                this.y + y * (j / 2 % 2 == 0 ? -1 : 1),
+                this.z + z * (j % 2 == 0 ? -1 : 1)));
+      }
+    }
     return points;
   }
 
   public Point3D getPointWithDiff(Point3D point, int orientation) {
-    int x = point.getX();
-    int y = point.getY();
-    int z = point.getZ();
-    if (orientation / 8 == 1) {
-      int temp = this.y;
-      this.y = this.z;
-      this.z = temp;
-    } else if (orientation / 8 == 2) {
-      int temp = this.y;
-      this.y = this.x;
-      this.x = temp;
-    } else if (orientation / 8 == 3) {
-      int temp = this.x;
-      this.x = this.y;
-      this.y = this.z;
-      this.z = temp;
-    } else if (orientation / 8 == 4) {
-      int temp = this.x;
-      this.x = this.z;
-      this.z = temp;
-    } else if (orientation / 8 == 5) {
-      int temp = this.x;
-      this.x = this.z;
-      this.z = this.y;
-      this.y = temp;
+    int x = this.x;
+    int y = this.y;
+    int z = this.z;
+    switch (orientation / 8) {
+      case 1:
+        y = this.z;
+        z = this.y;
+        break;
+      case 2:
+        x = this.y;
+        y = this.x;
+        break;
+      case 3:
+        x = this.y;
+        y = this.z;
+        z = this.x;
+        break;
+      case 4:
+        x = this.z;
+        z = this.x;
+        break;
+      case 5:
+        x = this.z;
+        y = this.x;
+        z = this.y;
+        break;
     }
     int ori = orientation % 8;
     return new Point3D(
-        x + (this.getX() * ((ori / 4 % 2 == 0) ? 1 : -1)),
-        y + (this.getY() * ((ori % 2 == 0) ? 1 : -1)),
-        z + (this.getZ() * ((ori / 2 % 2 == 0) ? 1 : -1)));
+        point.getX() + (x * ((ori / 4 % 2 == 0) ? 1 : -1)),
+        point.getY() + (y * ((ori / 2 % 2 == 0) ? 1 : -1)),
+        point.getZ() + (z * ((ori % 2 == 0) ? 1 : -1)));
   }
 
   public long manhattanDistance(Point3D pt2) {

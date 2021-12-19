@@ -1,0 +1,35 @@
+package net.ddellspe.utils;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
+import org.junit.Test;
+
+public class PointTest {
+  @Test
+  public void testEqualsAndHash() {
+    Point orig = new Point(10, 20);
+    Point same = new Point(10, 20);
+    assertEquals(orig, same);
+    assertEquals(orig.hashCode(), same.hashCode());
+    assertEquals(orig, orig);
+    assertFalse(orig.equals(null));
+    assertEquals(orig.toString(), "Point [x=10, y=20]");
+  }
+
+  @Test
+  public void testSetters() {
+    Point orig = new Point(10, 20);
+    Point same = new Point(30, 40);
+    orig.setX(30);
+    orig.setY(40);
+    assertEquals(orig, same);
+  }
+
+  @Test
+  public void testGetters() {
+    Point orig = new Point(10, 20);
+    assertEquals(orig.getX(), 10);
+    assertEquals(orig.getY(), 20);
+  }
+}
