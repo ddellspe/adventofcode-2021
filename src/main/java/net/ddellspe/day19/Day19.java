@@ -1,33 +1,17 @@
 package net.ddellspe.day19;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import net.ddellspe.utils.InputUtils;
 import net.ddellspe.utils.Point3D;
 
 public class Day19 {
-  public static List<String> readInData(String filename) {
-    try (BufferedReader reader =
-        new BufferedReader(
-            new InputStreamReader(
-                Objects.requireNonNull(Day19.class.getResourceAsStream(filename))))) {
-      return reader.lines().collect(Collectors.toList());
-    } catch (IOException e) {
-      e.printStackTrace();
-      return null;
-    }
-  }
-
-  public static long part1(String filename) {
-    List<String> data = readInData(filename);
+  public static Map<Integer, Set<Point3D>> parseScanners(List<String> data) {
     Map<Integer, Set<Point3D>> scanners = new HashMap<>();
     Set<Point3D> points = new HashSet<>();
     int scannerNumber = 0;
@@ -50,6 +34,12 @@ public class Day19 {
       points.add(new Point3D(x, y, z));
     }
     scanners.put(scannerNumber, points);
+    return scanners;
+  }
+
+  public static long part1(String filename) {
+    List<String> data = InputUtils.stringPerLine(filename, Day19.class);
+    Map<Integer, Set<Point3D>> scanners = parseScanners(data);
     Set<Point3D> original = scanners.get(0);
     Map<Point3D, Set<Integer>> commonPoints = new HashMap<>();
     for (Point3D pt : original) {
@@ -111,29 +101,8 @@ public class Day19 {
   }
 
   public static long part2(String filename) {
-    List<String> data = readInData(filename);
-    Map<Integer, Set<Point3D>> scanners = new HashMap<>();
-    Set<Point3D> points = new HashSet<>();
-    int scannerNumber = 0;
-    for (String line : data) {
-      if (line.contains("---")) {
-        scannerNumber = Integer.parseInt(line.split("[ ]+")[2]);
-        continue;
-      }
-      if (line.isEmpty()) {
-        if (!points.isEmpty()) {
-          scanners.put(scannerNumber, points);
-          points = new HashSet<>();
-        }
-        continue;
-      }
-      String[] pts = line.split(",");
-      int x = Integer.parseInt(pts[0]);
-      int y = Integer.parseInt(pts[1]);
-      int z = Integer.parseInt(pts[2]);
-      points.add(new Point3D(x, y, z));
-    }
-    scanners.put(scannerNumber, points);
+    List<String> data = InputUtils.stringPerLine(filename, Day19.class);
+    Map<Integer, Set<Point3D>> scanners = parseScanners(data);
     Set<Point3D> original = scanners.get(0);
     Map<Point3D, Set<Integer>> commonPoints = new HashMap<>();
     Set<Point3D> scannerPoints = new HashSet<>();

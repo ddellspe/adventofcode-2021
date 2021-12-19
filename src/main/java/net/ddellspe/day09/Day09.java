@@ -1,8 +1,5 @@
 package net.ddellspe.day09;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,25 +7,13 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Queue;
 import java.util.Set;
 import java.util.stream.Collectors;
+import net.ddellspe.utils.InputUtils;
 import net.ddellspe.utils.Point;
 
 public class Day09 {
-  public static List<String> readInData(String filename) {
-    try (BufferedReader reader =
-        new BufferedReader(
-            new InputStreamReader(
-                Objects.requireNonNull(Day09.class.getResourceAsStream(filename))))) {
-      return reader.lines().collect(Collectors.toList());
-    } catch (IOException e) {
-      e.printStackTrace();
-      return null;
-    }
-  }
-
   public static Queue<Point> getNeighbors(Point point) {
     Queue<Point> neighbors = new LinkedList<>();
     neighbors.add(new Point(point.getX() - 1, point.getY()));
@@ -39,7 +24,7 @@ public class Day09 {
   }
 
   public static long part1(String filename) {
-    List<String> data = readInData(filename);
+    List<String> data = InputUtils.stringPerLine(filename, Day09.class);
     Map<Point, Integer> points = new HashMap<>();
     for (int i = 0; i < data.size(); i++) {
       for (int j = 0; j < data.get(i).length(); j++) {
@@ -65,7 +50,7 @@ public class Day09 {
   }
 
   public static long part2(String filename) {
-    List<String> data = readInData(filename);
+    List<String> data = InputUtils.stringPerLine(filename, Day09.class);
     Map<Point, Integer> points = new HashMap<>();
     for (int i = 0; i < data.size(); i++) {
       for (int j = 0; j < data.get(i).length(); j++) {
@@ -93,6 +78,7 @@ public class Day09 {
       int val = points.get(point);
       long size = 1;
       if (visited.contains(point)) {
+        // This shouldn't be needed unless there's bad data
         continue;
       }
       visited.add(point);

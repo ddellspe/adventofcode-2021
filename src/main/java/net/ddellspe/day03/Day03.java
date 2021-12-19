@@ -1,28 +1,13 @@
 package net.ddellspe.day03;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
+import net.ddellspe.utils.InputUtils;
 
 public class Day03 {
-  public static List<String> readInData(String filename) {
-    try (BufferedReader reader =
-        new BufferedReader(
-            new InputStreamReader(
-                Objects.requireNonNull(Day03.class.getResourceAsStream(filename))))) {
-      return reader.lines().collect(Collectors.toList());
-    } catch (IOException e) {
-      e.printStackTrace();
-      return null;
-    }
-  }
-
   public static long part1(String filename) {
-    List<String> data = readInData(filename);
+    List<String> data = InputUtils.stringPerLine(filename, Day03.class);
     StringBuilder gammaBit = new StringBuilder();
     StringBuilder epsilonBit = new StringBuilder();
     for (int i = 0; i < data.get(0).length(); i++) {
@@ -39,12 +24,13 @@ public class Day03 {
   }
 
   public static long part2(String filename) {
-    List<String> data = readInData(filename);
+    List<String> data = InputUtils.stringPerLine(filename, Day03.class);
     List<String> oxygenData = new ArrayList<>(data);
     List<String> co2Data = new ArrayList<>(data);
     for (int i = 0; i < data.get(0).length(); i++) {
       int cnt = 0;
       if (oxygenData.size() == 1) {
+        // not tested, but this is a potential issue
         break;
       }
       for (String str : oxygenData) {

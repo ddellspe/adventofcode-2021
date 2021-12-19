@@ -1,29 +1,13 @@
 package net.ddellspe.day18;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
+import net.ddellspe.utils.InputUtils;
 
 public class Day18 {
-  public static List<String> readInData(String filename) {
-    try (BufferedReader reader =
-        new BufferedReader(
-            new InputStreamReader(
-                Objects.requireNonNull(Day18.class.getResourceAsStream(filename))))) {
-      return reader.lines().collect(Collectors.toList());
-    } catch (IOException e) {
-      e.printStackTrace();
-      return null;
-    }
-  }
-
   static Pattern PAIR_PATTERN = Pattern.compile("\\[(\\d+),(\\d+)\\]");
   static Pattern LEFT_NUMBER_PATTERN = Pattern.compile("\\d+(?!.*\\d)");
   static Pattern GREATER_THAN_10_PATTERN = Pattern.compile("\\d\\d+");
@@ -92,7 +76,7 @@ public class Day18 {
   }
 
   public static long part1(String filename) {
-    List<String> data = readInData(filename);
+    List<String> data = InputUtils.stringPerLine(filename, Day18.class);
     String snailfishStr = "";
     for (String line : data) {
       if (snailfishStr.isEmpty()) {
@@ -106,7 +90,7 @@ public class Day18 {
   }
 
   public static long part2(String filename) {
-    List<String> data = readInData(filename);
+    List<String> data = InputUtils.stringPerLine(filename, Day18.class);
     List<Long> sums = new ArrayList<>();
     for (int i = 0; i < data.size(); i++) {
       for (int j = 0; j < data.size(); j++) {

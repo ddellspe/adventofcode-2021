@@ -19,7 +19,7 @@ public class Day13Test {
 
   @Test
   public void providedInput1TestPart2() {
-    assertThat(Day13.part2("example.txt"), is(equalTo("#####\n#   #\n#   #\n#   #\n#####\n")));
+    assertThat(Day13.part2("example.txt"), is(equalTo("█████\n█   █\n█   █\n█   █\n█████\n")));
   }
 
   @Test

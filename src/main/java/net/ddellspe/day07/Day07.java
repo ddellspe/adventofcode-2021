@@ -1,30 +1,11 @@
 package net.ddellspe.day07;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import net.ddellspe.utils.InputUtils;
 
 public class Day07 {
-  public static List<Integer> readInData(String filename) {
-    try (BufferedReader reader =
-        new BufferedReader(
-            new InputStreamReader(
-                Objects.requireNonNull(Day07.class.getResourceAsStream(filename))))) {
-      return Arrays.stream(reader.lines().findFirst().get().split(","))
-          .map(Integer::parseInt)
-          .collect(Collectors.toList());
-    } catch (IOException e) {
-      e.printStackTrace();
-      return null;
-    }
-  }
-
   public static long part1(String filename) {
-    List<Integer> data = readInData(filename);
+    List<Integer> data = InputUtils.numbersInOneLine(filename, Day07.class);
     long max = data.stream().max(Integer::compare).get();
     long minPos = Long.MAX_VALUE;
     for (int i = 0; i < max; i++) {
@@ -38,7 +19,7 @@ public class Day07 {
   }
 
   public static long part2(String filename) {
-    List<Integer> data = readInData(filename);
+    List<Integer> data = InputUtils.numbersInOneLine(filename, Day07.class);
     long max = data.stream().max(Integer::compare).get();
     long minPos = Long.MAX_VALUE;
     for (int i = 0; i < max; i++) {

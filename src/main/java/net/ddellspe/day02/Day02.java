@@ -1,29 +1,13 @@
 package net.ddellspe.day02;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import net.ddellspe.utils.InputUtils;
 
 public class Day02 {
-  public static List<String> readInData(String filename) {
-    try (BufferedReader reader =
-        new BufferedReader(
-            new InputStreamReader(
-                Objects.requireNonNull(Day02.class.getResourceAsStream(filename))))) {
-      return reader.lines().collect(Collectors.toList());
-    } catch (IOException e) {
-      e.printStackTrace();
-      return null;
-    }
-  }
-
   public static long part1(String filename) {
+    List<String> movements = InputUtils.stringPerLine(filename, Day02.class);
     long hPos = 0;
     long depth = 0;
-    List<String> movements = readInData(filename);
     for (String movement : movements) {
       String action = movement.split(" ")[0];
       int amt = Integer.parseInt(movement.split(" ")[1]);
@@ -43,10 +27,10 @@ public class Day02 {
   }
 
   public static long part2(String filename) {
+    List<String> movements = InputUtils.stringPerLine(filename, Day02.class);
     long hPos = 0;
     long depth = 0;
     long aim = 0;
-    List<String> movements = readInData(filename);
     for (String movement : movements) {
       String action = movement.split(" ")[0];
       int amt = Integer.parseInt(movement.split(" ")[1]);

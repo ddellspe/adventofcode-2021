@@ -1,31 +1,15 @@
 package net.ddellspe.day16;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Queue;
-import java.util.stream.Collectors;
+import net.ddellspe.utils.InputUtils;
 
 public class Day16 {
-  public static List<String> readInData(String filename) {
-    try (BufferedReader reader =
-        new BufferedReader(
-            new InputStreamReader(
-                Objects.requireNonNull(Day16.class.getResourceAsStream(filename))))) {
-      return reader.lines().collect(Collectors.toList());
-    } catch (IOException e) {
-      e.printStackTrace();
-      return null;
-    }
-  }
-
   public static class Packet {
     private Integer version;
     private Integer typeId;
@@ -73,6 +57,7 @@ public class Day16 {
         Packet packet2 = packets.get(1);
         return packet1.getPacketScore() == packet2.getPacketScore() ? 1L : 0L;
       }
+      // With proper data this shouldn't be necessary
       throw new RuntimeException("Unknown type ID: " + typeId);
     }
 
@@ -145,7 +130,7 @@ public class Day16 {
   }
 
   public static long part1(String filename) {
-    List<String> data = readInData(filename);
+    List<String> data = InputUtils.stringPerLine(filename, Day16.class);
     Map<String, String> bitMap = new HashMap<>();
     for (int i = 0; i < 16; i++) {
       bitMap.put(
@@ -171,7 +156,7 @@ public class Day16 {
   }
 
   public static long part2(String filename) {
-    List<String> data = readInData(filename);
+    List<String> data = InputUtils.stringPerLine(filename, Day16.class);
     Map<String, String> bitMap = new HashMap<>();
     for (int i = 0; i < 16; i++) {
       bitMap.put(

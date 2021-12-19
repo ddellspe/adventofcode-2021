@@ -1,29 +1,14 @@
 package net.ddellspe.day01;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import net.ddellspe.utils.InputUtils;
 
 public class Day01 {
-  public static List<Integer> readInData(String filename) {
-    try (BufferedReader reader =
-        new BufferedReader(
-            new InputStreamReader(
-                Objects.requireNonNull(Day01.class.getResourceAsStream(filename))))) {
-      return reader.lines().map(Integer::parseInt).collect(Collectors.toList());
-    } catch (IOException e) {
-      e.printStackTrace();
-      return null;
-    }
-  }
-
   public static long part1(String filename) {
     int count = 0;
-    List<Integer> data = readInData(filename);
+    List<Integer> data = InputUtils.numberPerLine(filename, Day01.class);
     int prev = data.get(0);
     for (int i = 1; i < data.size(); i++) {
       if (data.get(i) > prev) {
@@ -36,7 +21,7 @@ public class Day01 {
 
   public static long part2(String filename) {
     int count = 0;
-    List<Integer> data = readInData(filename);
+    List<Integer> data = InputUtils.numberPerLine(filename, Day01.class);
     int n1 = data.get(0);
     int n2 = data.get(1);
     int n3 = data.get(2);
@@ -54,14 +39,14 @@ public class Day01 {
   }
 
   public static long part1Optimized(String filename) {
-    List<Integer> data = readInData(filename);
+    List<Integer> data = InputUtils.numberPerLine(filename, Day01.class);
     return IntStream.range(1, Objects.requireNonNull(data).size())
         .filter(index -> (data.get(index) - data.get(index - 1)) > 0)
         .count();
   }
 
   public static long part2Optimized(String filename) {
-    List<Integer> data = readInData(filename);
+    List<Integer> data = InputUtils.numberPerLine(filename, Day01.class);
     /*
      * index     0   1   2   3
      *          100 105 106 108

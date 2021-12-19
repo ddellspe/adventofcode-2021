@@ -1,44 +1,13 @@
 package net.ddellspe.day08;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import net.ddellspe.utils.InputUtils;
 
 public class Day08 {
-  public static List<String> readInData(String filename) {
-    try (BufferedReader reader =
-        new BufferedReader(
-            new InputStreamReader(
-                Objects.requireNonNull(Day08.class.getResourceAsStream(filename))))) {
-      return reader.lines().collect(Collectors.toList());
-    } catch (IOException e) {
-      e.printStackTrace();
-      return null;
-    }
-  }
-
-  public static long part1(String filename) {
-    List<String> data = readInData(filename);
-    return data.stream()
-        .map(line -> line.split(" \\| ")[1])
-        .mapToLong(
-            outputs ->
-                Arrays.stream(outputs.split("[ ]+"))
-                    .filter(
-                        digit ->
-                            digit.length() == 2
-                                || digit.length() == 7
-                                || digit.length() == 3
-                                || digit.length() == 4)
-                    .count())
-        .sum();
-  }
-
   public static List<String> determineMapping(List<String> input) {
     Map<Integer, List<String>> data = input.stream().collect(Collectors.groupingBy(String::length));
     String[] mappings = new String[10];
@@ -94,8 +63,25 @@ public class Day08 {
     return Arrays.stream(mappings).collect(Collectors.toList());
   }
 
+  public static long part1(String filename) {
+    List<String> data = InputUtils.stringPerLine(filename, Day08.class);
+    return data.stream()
+        .map(line -> line.split(" \\| ")[1])
+        .mapToLong(
+            outputs ->
+                Arrays.stream(outputs.split("[ ]+"))
+                    .filter(
+                        digit ->
+                            digit.length() == 2
+                                || digit.length() == 7
+                                || digit.length() == 3
+                                || digit.length() == 4)
+                    .count())
+        .sum();
+  }
+
   public static long part2(String filename) {
-    List<String> data = readInData(filename);
+    List<String> data = InputUtils.stringPerLine(filename, Day08.class);
     return Objects.requireNonNull(data).stream()
         .map(
             line ->

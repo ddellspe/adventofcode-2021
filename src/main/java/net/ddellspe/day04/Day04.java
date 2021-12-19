@@ -1,27 +1,12 @@
 package net.ddellspe.day04;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
+import net.ddellspe.utils.InputUtils;
 
 public class Day04 {
-  public static List<String> readInData(String filename) {
-    try (BufferedReader reader =
-        new BufferedReader(
-            new InputStreamReader(
-                Objects.requireNonNull(Day04.class.getResourceAsStream(filename))))) {
-      return reader.lines().collect(Collectors.toList());
-    } catch (IOException e) {
-      e.printStackTrace();
-      return null;
-    }
-  }
-
   public static boolean isBingo(Integer[] board) {
     for (int num = 0; num < 5; num++) {
       if (board[num * 5]
@@ -43,7 +28,7 @@ public class Day04 {
   }
 
   public static long part1(String filename) {
-    List<String> data = readInData(filename);
+    List<String> data = InputUtils.stringPerLine(filename, Day04.class);
     List<Integer> numbers =
         Arrays.stream(data.get(0).split(",")).map(Integer::parseInt).collect(Collectors.toList());
     List<Integer[]> boards = new ArrayList<>();
@@ -85,11 +70,12 @@ public class Day04 {
       boards.clear();
       boards.addAll(newBoards);
     }
+    // this should not be reached, but might be if input is bad or wrong
     return 0L;
   }
 
   public static long part2(String filename) {
-    List<String> data = readInData(filename);
+    List<String> data = InputUtils.stringPerLine(filename, Day04.class);
     List<Integer> numbers =
         Arrays.stream(data.get(0).split(",")).map(Integer::parseInt).collect(Collectors.toList());
     List<Integer[]> boards = new ArrayList<>();
@@ -135,6 +121,7 @@ public class Day04 {
         lastBingo = true;
       }
     }
+    // this should not be reached, but might be if input is bad or wrong
     return 0L;
   }
 }

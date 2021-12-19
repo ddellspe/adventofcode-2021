@@ -1,29 +1,13 @@
 package net.ddellspe.day17;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import net.ddellspe.utils.InputUtils;
 import net.ddellspe.utils.Point;
 
 public class Day17 {
-  public static List<String> readInData(String filename) {
-    try (BufferedReader reader =
-        new BufferedReader(
-            new InputStreamReader(
-                Objects.requireNonNull(Day17.class.getResourceAsStream(filename))))) {
-      return reader.lines().collect(Collectors.toList());
-    } catch (IOException e) {
-      e.printStackTrace();
-      return null;
-    }
-  }
-
   public static long hitsTarget(int xInit, int yInit, int xMin, int xMax, int yMin, int yMax) {
     boolean passedYMin;
     boolean inTarget;
@@ -47,7 +31,7 @@ public class Day17 {
   }
 
   public static long part1(String filename) {
-    List<String> data = readInData(filename);
+    List<String> data = InputUtils.stringPerLine(filename, Day17.class);
     String input = data.get(0).split(": ")[1];
     String xStr = input.split(", ")[0].split("=")[1];
     String yStr = input.split(", ")[1].split("=")[1];
@@ -68,7 +52,7 @@ public class Day17 {
   }
 
   public static long part2(String filename) {
-    List<String> data = readInData(filename);
+    List<String> data = InputUtils.stringPerLine(filename, Day17.class);
     String input = data.get(0).split(": ")[1];
     String xStr = input.split(", ")[0].split("=")[1];
     String yStr = input.split(", ")[1].split("=")[1];
