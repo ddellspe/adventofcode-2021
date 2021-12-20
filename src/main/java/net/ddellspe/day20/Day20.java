@@ -10,9 +10,38 @@ import net.ddellspe.utils.Point;
 public class Day20 {
   private Day20() {}
 
-  public static long part1(String filename) {
+  public static void print(Set<Point> points, int it, String defaultValue) {
+    int xMin = points.stream().mapToInt(Point::getX).min().getAsInt();
+    int xMax = points.stream().mapToInt(Point::getX).max().getAsInt();
+    int yMin = points.stream().mapToInt(Point::getY).min().getAsInt();
+    int yMax = points.stream().mapToInt(Point::getY).max().getAsInt();
+    System.out.println("Iteration " + it);
+    for (int y = yMin - 3; y <= yMax + 3; y++) {
+      StringBuilder line = new StringBuilder();
+      if (y == yMin - 3 || y == yMax + 3) {
+        line.append("+");
+        line.append("-".repeat(Math.max(0, xMax - xMin + 7)));
+        line.append("+");
+      } else {
+        line.append("|");
+        for (int x = xMin - 3; x <= xMax + 3; x++) {
+          if (x < xMin || x > xMax || y < yMin || y > yMax) {
+            line.append(defaultValue.equals("1") ? "#" : ".");
+          } else if (points.contains(new Point(x, y))) {
+            line.append("#");
+          } else {
+            line.append(".");
+          }
+        }
+        line.append("|");
+      }
+      System.out.println(line);
+    }
+  }
+
+  public static long part1(String filename, boolean debug) {
     List<String> data = InputUtils.stringPerLine(filename, Day20.class);
-    String algorithm = data.get(0);
+    String algorithm = data.get(0).replaceAll("\\.", "0").replaceAll("#", "1");
     data = data.subList(2, data.size());
     Set<Point> points = new HashSet<>();
     for (int y = 0; y < data.size(); y++) {
@@ -23,6 +52,9 @@ public class Day20 {
       }
     }
     String defaultValue = "0";
+    if (debug) {
+      print(points, 0, defaultValue);
+    }
     for (int i = 0; i < 2; i++) {
       int xMin = points.stream().mapToInt(Point::getX).min().getAsInt();
       int xMax = points.stream().mapToInt(Point::getX).max().getAsInt();
@@ -44,7 +76,7 @@ public class Day20 {
             }
           }
           int position = Integer.parseInt(point, 2);
-          if (algorithm.charAt(position) == '#') {
+          if (algorithm.charAt(position) == '1') {
             newPoints.add(new Point(x, y));
           }
         }
@@ -54,23 +86,20 @@ public class Day20 {
       String defaultVal = defaultValue;
       defaultValue =
           String.valueOf(
-                      algorithm.charAt(
-                          Integer.parseInt(
-                              IntStream.range(0, 9)
-                                  .mapToObj(v -> defaultVal)
-                                  .reduce(String::concat)
-                                  .get(),
-                              2)))
-                  .equals("#")
-              ? "1"
-              : "0";
+              algorithm.charAt(
+                  Integer.parseInt(
+                      IntStream.range(0, 9).mapToObj(v -> defaultVal).reduce(String::concat).get(),
+                      2)));
+      if (debug) {
+        print(points, i + 1, defaultValue);
+      }
     }
     return points.size();
   }
 
-  public static long part2(String filename) {
+  public static long part2(String filename, boolean debug) {
     List<String> data = InputUtils.stringPerLine(filename, Day20.class);
-    String algorithm = data.get(0);
+    String algorithm = data.get(0).replaceAll("\\.", "0").replaceAll("#", "1");
     data = data.subList(2, data.size());
     Set<Point> points = new HashSet<>();
     for (int y = 0; y < data.size(); y++) {
@@ -81,6 +110,9 @@ public class Day20 {
       }
     }
     String defaultValue = "0";
+    if (debug) {
+      print(points, 0, defaultValue);
+    }
     for (int i = 0; i < 50; i++) {
       int xMin = points.stream().mapToInt(Point::getX).min().getAsInt();
       int xMax = points.stream().mapToInt(Point::getX).max().getAsInt();
@@ -102,7 +134,7 @@ public class Day20 {
             }
           }
           int position = Integer.parseInt(point, 2);
-          if (algorithm.charAt(position) == '#') {
+          if (algorithm.charAt(position) == '1') {
             newPoints.add(new Point(x, y));
           }
         }
@@ -112,16 +144,13 @@ public class Day20 {
       String defaultVal = defaultValue;
       defaultValue =
           String.valueOf(
-                      algorithm.charAt(
-                          Integer.parseInt(
-                              IntStream.range(0, 9)
-                                  .mapToObj(v -> defaultVal)
-                                  .reduce(String::concat)
-                                  .get(),
-                              2)))
-                  .equals("#")
-              ? "1"
-              : "0";
+              algorithm.charAt(
+                  Integer.parseInt(
+                      IntStream.range(0, 9).mapToObj(v -> defaultVal).reduce(String::concat).get(),
+                      2)));
+      if (debug) {
+        print(points, i + 1, defaultValue);
+      }
     }
     return points.size();
   }
