@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import net.ddellspe.utils.InputUtils;
 import net.ddellspe.utils.Point;
@@ -100,26 +101,25 @@ public class Day21 {
     long p1Score = 0;
     int player2 = Integer.parseInt(data.get(1).split(": ")[1]);
     long p2Score = 0;
-    int rolls = 0;
+    int rolls = 1;
     int player = 0;
     while (p1Score < 1000 && p2Score < 1000) {
-      for (int i = 1; i <= 3; i++) {
-        if (player == 0) {
-          player1 += (i + rolls) % 10;
-          player1 = player1 > 10 ? ((player1 - 1) % 10 + 1) : player1;
-        } else {
-          player2 += (i + rolls) % 10;
-          player2 = player2 > 10 ? ((player2 - 1) % 10 + 1) : player2;
-        }
+      if (player == 0) {
+        player1 += (((rolls + (rolls + 2)) * 3 / 2) % 10);
+        player1 = ((player1 - 1) % 10 + 1);
+      } else {
+        player2 += (((rolls + (rolls + 2)) * 3 / 2) % 10);
+        player2 = ((player2 - 1) % 10 + 1);
       }
-      rolls += 3;
       if (player == 0) {
         p1Score += player1;
       } else {
         p2Score += player2;
       }
-      player = (player + 1) % 2;
+      player = 1 - player;
+      rolls += 3;
     }
+    rolls--;
     return p1Score >= 1000 ? p2Score * rolls : p1Score * rolls;
   }
 
@@ -131,23 +131,27 @@ public class Day21 {
     Map<GameState, Long> counts = new HashMap<>();
     GameState state = new GameState(new Point(player1, player2), new Point(0, 0), 0);
     counts.put(state, 1L);
+    Map<Integer, Integer> countsPerSum = new HashMap<>();
+    for (int i = 1; i <= 3; i++) {
+      for (int j = 1; j <= 3; j++) {
+        for (int k = 1; k <= 3; k++) {
+          countsPerSum.merge(i + j + k, 1, Integer::sum);
+        }
+      }
+    }
     while (!counts.isEmpty()) {
       GameState tempState = counts.keySet().stream().min(GameState::compareTo).get();
       long count = counts.get(tempState);
       counts.remove(tempState);
-      for (int i = 1; i <= 3; i++) {
-        for (int j = 1; j <= 3; j++) {
-          for (int k = 1; k <= 3; k++) {
-            GameState newState = tempState.copy();
-            newState.setPosition((newState.getPosition() + i + j + k - 1) % 10 + 1);
-            newState.setScore(newState.getScore() + newState.getPosition());
-            if (newState.getScore() >= 21) {
-              winners[newState.getTurn()] += count;
-            } else {
-              newState.changeTurn();
-              counts.merge(newState, count, Long::sum);
-            }
-          }
+      for (Entry<Integer, Integer> sum : countsPerSum.entrySet()) {
+        GameState newState = tempState.copy();
+        newState.setPosition((newState.getPosition() + sum.getKey() - 1) % 10 + 1);
+        newState.setScore(newState.getScore() + newState.getPosition());
+        if (newState.getScore() >= 21) {
+          winners[newState.getTurn()] += (count * sum.getValue());
+        } else {
+          newState.changeTurn();
+          counts.merge(newState, (count * sum.getValue()), Long::sum);
         }
       }
     }
