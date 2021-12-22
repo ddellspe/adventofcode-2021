@@ -7,10 +7,10 @@ import org.junit.jupiter.api.Test;
 public class Day16Test {
   @Test
   public void providedInputTestPart1() {
-    assertEquals(Day16.part1("example.txt"), 16L);
-    assertEquals(Day16.part1("example2.txt"), 12L);
-    assertEquals(Day16.part1("example3.txt"), 23L);
-    assertEquals(Day16.part1("example4.txt"), 31L);
+    assertEquals(16L, Day16.part1("example.txt"));
+    assertEquals(12L, Day16.part1("example2.txt"));
+    assertEquals(23L, Day16.part1("example3.txt"));
+    assertEquals(31L, Day16.part1("example4.txt"));
   }
 
   @Test
@@ -20,14 +20,14 @@ public class Day16Test {
 
   @Test
   public void providedInputTestPart2() {
-    assertEquals(Day16.part2("example5.txt"), 3L);
-    assertEquals(Day16.part2("example6.txt"), 54L);
-    assertEquals(Day16.part2("example7.txt"), 7L);
-    assertEquals(Day16.part2("example8.txt"), 9L);
-    assertEquals(Day16.part2("example9.txt"), 1L);
-    assertEquals(Day16.part2("example10.txt"), 0L);
-    assertEquals(Day16.part2("example11.txt"), 0L);
-    assertEquals(Day16.part2("example12.txt"), 1L);
+    assertEquals(3L, Day16.part2("example5.txt"));
+    assertEquals(54L, Day16.part2("example6.txt"));
+    assertEquals(7L, Day16.part2("example7.txt"));
+    assertEquals(9L, Day16.part2("example8.txt"));
+    assertEquals(1L, Day16.part2("example9.txt"));
+    assertEquals(0L, Day16.part2("example10.txt"));
+    assertEquals(0L, Day16.part2("example11.txt"));
+    assertEquals(1L, Day16.part2("example12.txt"));
   }
 
   @Test

@@ -15,7 +15,7 @@ public class PointTest {
     assertEquals(orig, orig);
     //noinspection SimplifiableAssertion, ConstantConditions
     assertFalse(orig.equals(null));
-    assertEquals(orig.toString(), "Point [x=10, y=20]");
+    assertEquals("Point [x=10, y=20]", orig.toString());
   }
 
   @Test
@@ -30,7 +30,7 @@ public class PointTest {
   @Test
   public void testGetters() {
     Point orig = new Point(10, 20);
-    assertEquals(orig.getX(), 10);
-    assertEquals(orig.getY(), 20);
+    assertEquals(10, orig.getX());
+    assertEquals(20, orig.getY());
   }
 }

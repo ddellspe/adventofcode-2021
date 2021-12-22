@@ -7,17 +7,17 @@ import org.junit.jupiter.api.Test;
 public class Day12Test {
   @Test
   public void providedInput1TestPart1() {
-    assertEquals(Day12.part1("example1.txt"), 10L);
+    assertEquals(10L, Day12.part1("example1.txt"));
   }
 
   @Test
   public void providedInput2TestPart1() {
-    assertEquals(Day12.part1("example2.txt"), 19L);
+    assertEquals(19L, Day12.part1("example2.txt"));
   }
 
   @Test
   public void providedInput3TestPart1() {
-    assertEquals(Day12.part1("example3.txt"), 226L);
+    assertEquals(226L, Day12.part1("example3.txt"));
   }
 
   @Test
@@ -27,17 +27,17 @@ public class Day12Test {
 
   @Test
   public void providedInput1TestPart2() {
-    assertEquals(Day12.part2("example1.txt"), 36L);
+    assertEquals(36L, Day12.part2("example1.txt"));
   }
 
   @Test
   public void providedInput2TestPart2() {
-    assertEquals(Day12.part2("example2.txt"), 103L);
+    assertEquals(103L, Day12.part2("example2.txt"));
   }
 
   @Test
   public void providedInput3TestPart2() {
-    assertEquals(Day12.part2("example3.txt"), 3509L);
+    assertEquals(3509L, Day12.part2("example3.txt"));
   }
 
   @Test

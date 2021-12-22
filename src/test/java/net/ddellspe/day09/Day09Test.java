@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class Day09Test {
   @Test
   public void providedInputTestPart1() {
-    assertEquals(Day09.part1("example.txt"), 15L);
+    assertEquals(15L, Day09.part1("example.txt"));
   }
 
   @Test
@@ -17,7 +17,7 @@ public class Day09Test {
 
   @Test
   public void providedInputTestPart2() {
-    assertEquals(Day09.part2("example.txt"), 1134L);
+    assertEquals(1134L, Day09.part2("example.txt"));
   }
 
   @Test
