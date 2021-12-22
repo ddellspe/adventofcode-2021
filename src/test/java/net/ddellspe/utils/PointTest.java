@@ -13,6 +13,7 @@ public class PointTest {
     assertEquals(orig, same);
     assertEquals(orig.hashCode(), same.hashCode());
     assertEquals(orig, orig);
+    //noinspection SimplifiableAssertion, ConstantConditions
     assertFalse(orig.equals(null));
     assertEquals(orig.toString(), "Point [x=10, y=20]");
   }

@@ -14,6 +14,7 @@ public class Point3DTest {
     assertEquals(orig, same);
     assertEquals(orig.hashCode(), same.hashCode());
     assertEquals(orig, orig);
+    //noinspection SimplifiableAssertion, ConstantConditions
     assertFalse(orig.equals(null));
     assertEquals(orig.toString(), "Point3D [x=10, y=20, z=30]");
   }
