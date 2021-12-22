@@ -1,15 +1,13 @@
 package net.ddellspe.day15;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class Day15Test {
   @Test
   public void providedInput1TestPart1() {
-    assertThat(Day15.part1("example.txt"), is(equalTo(40L)));
+    assertEquals(Day15.part1("example.txt"), 40L);
   }
 
   @Test
@@ -19,7 +17,7 @@ public class Day15Test {
 
   @Test
   public void providedInput1TestPart2() {
-    assertThat(Day15.part2("example.txt"), is(equalTo(315L)));
+    assertEquals(Day15.part2("example.txt"), 315L);
   }
 
   @Test

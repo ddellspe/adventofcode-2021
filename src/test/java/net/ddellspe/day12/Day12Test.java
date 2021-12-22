@@ -1,25 +1,23 @@
 package net.ddellspe.day12;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class Day12Test {
   @Test
   public void providedInput1TestPart1() {
-    assertThat(Day12.part1("example1.txt"), is(equalTo(10L)));
+    assertEquals(Day12.part1("example1.txt"), 10L);
   }
 
   @Test
   public void providedInput2TestPart1() {
-    assertThat(Day12.part1("example2.txt"), is(equalTo(19L)));
+    assertEquals(Day12.part1("example2.txt"), 19L);
   }
 
   @Test
   public void providedInput3TestPart1() {
-    assertThat(Day12.part1("example3.txt"), is(equalTo(226L)));
+    assertEquals(Day12.part1("example3.txt"), 226L);
   }
 
   @Test
@@ -29,17 +27,17 @@ public class Day12Test {
 
   @Test
   public void providedInput1TestPart2() {
-    assertThat(Day12.part2("example1.txt"), is(equalTo(36L)));
+    assertEquals(Day12.part2("example1.txt"), 36L);
   }
 
   @Test
   public void providedInput2TestPart2() {
-    assertThat(Day12.part2("example2.txt"), is(equalTo(103L)));
+    assertEquals(Day12.part2("example2.txt"), 103L);
   }
 
   @Test
   public void providedInput3TestPart2() {
-    assertThat(Day12.part2("example3.txt"), is(equalTo(3509L)));
+    assertEquals(Day12.part2("example3.txt"), 3509L);
   }
 
   @Test
