@@ -35,3 +35,4 @@ Completion Statistics:
 |20|00:45:31|1472|00:46:03|1240||
 |21|00:14:11|1317|00:58:47|1277||
 |22|00:08:15| 305|01:29:51| 779||
+|23|01:50:22|1670|01:51:41| 484|I got part 2 information, then did both parts by hand for submission|
