@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
-import net.ddellspe.day21.Day21.GameState;
 import net.ddellspe.utils.InputUtils;
 
 public class Day23 {
@@ -94,7 +93,8 @@ public class Day23 {
       }
     }
 
-    // figure out if the current Amphipods is blocked by Amphipods of different types
+    // figure out if the current Amphipods is blocked by Amphipods of different
+    // types
     if ((currentPosition + 1) % 4 == type) {
       boolean mustMove = false;
       for (int i = currentPosition + 4; i < length; i += 4) {
@@ -114,7 +114,8 @@ public class Day23 {
       virtualPos -= 4;
     }
 
-    // set valid positioning between the virtual hallway position and the given hallway positions
+    // set valid positioning between the virtual hallway position and the given
+    // hallway positions
     for (int i = 0; i < 7; i++) {
       if (occupied[i] == -1 && checkHallwayClear(i, virtualPos, occupied)) {
         validPositions[i] = true;
@@ -142,7 +143,8 @@ public class Day23 {
       return validPositions;
     }
     int target = roomFirstSpot;
-    // get the deepest available spot in the room (if any door is occupied by a non-matching type,
+    // get the deepest available spot in the room (if any door is occupied by a
+    // non-matching type.
     // it is not able to move into the room
     for (int i = 0; i < NUM_EACH_TYPE; i++) {
       if (occupied[roomFirstSpot + 4 * i] == -1) {
@@ -151,8 +153,8 @@ public class Day23 {
         return validPositions;
       }
     }
-    // all positions are either occupied by appropriate Amphipods or empty with target being the
-    // deepest index that is available.
+    // all positions are either occupied by appropriate Amphipods or empty with
+    // target being the deepest index that is available.
     validPositions[target] = true;
     return validPositions;
   }
