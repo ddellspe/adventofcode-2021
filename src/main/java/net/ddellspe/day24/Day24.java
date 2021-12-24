@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import net.ddellspe.utils.InputUtils;
 import net.ddellspe.utils.LongPoint;
-import net.ddellspe.utils.Point;
 
 public class Day24 {
   private Day24() {}
@@ -17,7 +16,6 @@ public class Day24 {
     List<Integer> divide = new ArrayList<>();
     List<Integer> addX = new ArrayList<>();
     List<Integer> addZ = new ArrayList<>();
-    List<Point> pairs = new ArrayList<>();
     for (int i = 0; i < 14; i++) {
       divide.add(Integer.parseInt(data.get(i * 18 + 4).split(" ")[2]));
       addX.add(Integer.parseInt(data.get(i * 18 + 5).split(" ")[2]));
@@ -61,7 +59,6 @@ public class Day24 {
     List<Integer> part1 = new ArrayList<>();
     List<Integer> part2 = new ArrayList<>();
     List<Integer> part3 = new ArrayList<>();
-    List<Point> pairs = new ArrayList<>();
     for (int i = 0; i < 14; i++) {
       part1.add(Integer.parseInt(data.get(i * 18 + 4).split(" ")[2]));
       part2.add(Integer.parseInt(data.get(i * 18 + 5).split(" ")[2]));
