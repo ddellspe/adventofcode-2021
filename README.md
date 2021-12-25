@@ -37,3 +37,4 @@ Completion Statistics:
 |22|00:08:15| 305|01:29:51| 779||
 |23|01:50:22|1670|01:51:41| 484|I got part 2 information, then did both parts by hand for submission|
 |24|02:58:18|1061|02:58:25| 970|This submission did not use this code, I was dealing with issues with my code at the time|
+|25|00:17:42| 676|00:17:46| 566||
